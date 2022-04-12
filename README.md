@@ -4,6 +4,7 @@
 
 - [Variable Declarations & Type Conversions](#variable-declarations)
 - [Strings and Slices](#strings-and-slices)
+- [Map](#map)
 
 ## Using Types and Declarations in Go
 
@@ -101,11 +102,13 @@ func main() {
     fmt.Println(endSlice)
 ```
 
-```
-[quick brown]
-[the quick]
-[brown bear]
-```
+`Output`:
+
+    ```
+    [quick brown]
+    [the quick]
+    [brown bear]
+    ```
 
 The slice expression using inside of brackets, `:`, has `starting offset` and `ending offset`
 
@@ -119,3 +122,62 @@ The slice expression using inside of brackets, `:`, has `starting offset` and `e
 ```
 
 A `rune` is an Unicode code point, whish is a 32-bit int and rune literal is a single character within single quotes.
+
+### <a name="map"></a>Map
+
+A `map` is Go's version of an associative array. It holds `key-value` pairs and is similar to the `HashMap` in Java, the `dict` in Python, or the `Hash` in Ruby.
+
+#### Map Declaration
+
+[01e-maps.go](./01e-maps.go) line 6-12:
+
+```go
+    m := map[string]int{}
+    m2 := map[string]int{
+        "a": 1,
+        "b": 2,
+        "c": 3,
+    }
+    m3 := make(map[string]int)
+```
+
+**Two ways of creating a map**
+
+- Initialize map as `m`, `m2`
+- Initialize map with `make` function like `m3`
+
+Note: Never use an uninitialized map variable. Unlike a slice, you cannot add a value to a `nil` map.
+
+#### Comma ok Idiom
+
+[01e-maps.go](./01e-maps.go) line 27-34:
+
+```go
+    m["present"] = 0
+    fmt.Println(m["present"], m["not present"])
+
+    val, ok := m["present"]
+    fmt.Println(val, ok)
+
+    val, ok = m["not present"]
+    fmt.Println(val, ok)
+```
+
+`Output`:
+
+    ```
+    0 true
+    0 false
+    ```
+
+#### Deleting From Maps
+
+[01e-maps.go](./01e-maps.go) line 36-38:
+
+```go
+		delete(m, "present")
+    val, ok = m["present"]
+    fmt.Println(val, ok)
+```
+
+Use the delete function to remove a key-value pair from a map. The first parameter passed to the delete function is the map, and the second parameter is the key to remove. This function returns nothing. If a key that's not in the map, is passed, the function call does nothing.
