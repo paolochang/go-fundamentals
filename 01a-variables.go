@@ -15,9 +15,9 @@ func main() {
 
     fmt.Println(x, y, z)
 
-    var b byte = 30
+    var b byte = 30 // must convert the byte type with type conversion: int(b)
     x = int(b)
-    y = y + int(b) // must need type conversion with int(b)
+    y = y + int(b) 
 
     fmt.Println(x, y, z)
 
