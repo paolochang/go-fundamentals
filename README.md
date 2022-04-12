@@ -7,6 +7,10 @@
 #### Declarations and Print Output
 
 ```go
+package main
+
+import "fmt"
+
 func main() {
     var x int = 10 // full variable declaration format
     var y = 20     // type isn't needed, since the default type for the numeric literal 20 is int
@@ -16,9 +20,7 @@ func main() {
 }
 ```
 
-Use `Println` function in the `fmt` package to output the values of our variables. If we don't read a variable value at least once, the Go compiler refuses to compile our code. Let's see that by commenting out the `import` statement and the `fmt.Println` statement.
-
-Unused variables and packages will return the error message.
+The `Println` function in the `fmt` package allows to output the values of our variables. If the variable value has not been used at least once, the Go compiler refuses to compile the code. As the same reason, unused packages will refuse to compile and return the error message.
 
 ```go
     f := 3.2
