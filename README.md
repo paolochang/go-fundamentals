@@ -104,11 +104,9 @@ func main() {
 
 `Output`:
 
-    ```bash
     [quick brown]
     [the quick]
     [brown bear]
-    ```
 
 The slice expression using inside of brackets, `:`, has `starting offset` and `ending offset`
 
@@ -165,10 +163,8 @@ Note: Never use an uninitialized map variable. Unlike a slice, you cannot add a 
 
 `Output`:
 
-    ```bash
     0 true
     0 false
-    ```
 
 #### Deleting From Maps
 
