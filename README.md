@@ -2,13 +2,13 @@
 
 ## Index
 
-- [Variable Declarations & Type Conversions](#variable-declarations)
-- [Strings and Slices](#strings-and-slices)
-- [Map](#map)
+1. [Variable Declarations & Type Conversions](#variable-declarations)
+2. [Strings and Slices](#strings-and-slices)
+3. [Map](#map)
 
 ## Using Types and Declarations in Go
 
-### <a name="variable-declarations"></a>Variable Declarations & Type Conversions
+### <a name="variable-declarations"></a>1. Variable Declarations & Type Conversions
 
 #### Declarations and Print Output
 
@@ -48,7 +48,7 @@ The `:=` operator allows to declare and assign a value to a variable. The `:=` o
     fmt.Println(x, y, z)
 ```
 
-### <a name="strings-and-slices"></a>Strings and Slices
+### <a name="strings-and-slices"></a>2. Strings and Slices
 
 #### Strings
 
@@ -104,7 +104,7 @@ func main() {
 
 `Output`:
 
-    ```
+    ```bash
     [quick brown]
     [the quick]
     [brown bear]
@@ -123,13 +123,13 @@ The slice expression using inside of brackets, `:`, has `starting offset` and `e
 
 A `rune` is an Unicode code point, whish is a 32-bit int and rune literal is a single character within single quotes.
 
-### <a name="map"></a>Map
+### <a name="map"></a>3. Maps
 
 A `map` is Go's version of an associative array. It holds `key-value` pairs and is similar to the `HashMap` in Java, the `dict` in Python, or the `Hash` in Ruby.
 
 #### Map Declaration
 
-[01e-maps.go](./01e-maps.go) line 6-12:
+[01e-maps.go](./01e-maps.go) (line 6-12):
 
 ```go
     m := map[string]int{}
@@ -150,7 +150,7 @@ Note: Never use an uninitialized map variable. Unlike a slice, you cannot add a 
 
 #### Comma ok Idiom
 
-[01e-maps.go](./01e-maps.go) line 27-34:
+[01e-maps.go](./01e-maps.go) (line 27-34):
 
 ```go
     m["present"] = 0
@@ -165,17 +165,17 @@ Note: Never use an uninitialized map variable. Unlike a slice, you cannot add a 
 
 `Output`:
 
-    ```
+    ```bash
     0 true
     0 false
     ```
 
 #### Deleting From Maps
 
-[01e-maps.go](./01e-maps.go) line 36-38:
+[01e-maps.go](./01e-maps.go) (line 36-38):
 
 ```go
-		delete(m, "present")
+    delete(m, "present")
     val, ok = m["present"]
     fmt.Println(val, ok)
 ```

@@ -16,10 +16,10 @@ func main() {
     fmt.Println(m["hello"])
     fmt.Println(len(m), len(m2), len(m3))
     
-		/** 
-		 * Never use an uninitialized map variable.
-		 * Unlike a slice, you cannot add a value to a nil map.
-		 */
+		 
+		// Never use an uninitialized map variable.
+		// Unlike a slice, you cannot add a value to a nil map.
+		
     // var badMap map[string]int
     // badMap["oops"] = 1
     // fmt.Println(badMap)
@@ -32,7 +32,7 @@ func main() {
 
     val, ok = m["not present"]
     fmt.Println(val, ok)
-		
+
 		delete(m, "present")
     val, ok = m["present"]
     fmt.Println(val, ok)
