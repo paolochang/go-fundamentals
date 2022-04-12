@@ -2,12 +2,12 @@
 
 ## Index
 
-[Variable Declarations & Type Conversions](###Variable-Declarations-&-Type-Conversions)
-[Strings and Slices](###Strings-and-Slices)
+- [Variable Declarations & Type Conversions](#variable-declarations)
+- [Strings and Slices](#strings-and-slices)
 
 ## Using Types and Declarations in Go
 
-### Variable Declarations & Type Conversions
+### <a name="variable-declarations"></a>Variable Declarations & Type Conversions
 
 #### Declarations and Print Output
 
@@ -47,7 +47,7 @@ The `:=` operator allows to declare and assign a value to a variable. The `:=` o
     fmt.Println(x, y, z)
 ```
 
-### Strings and Slices
+### <a name="strings-and-slices"></a>Strings and Slices
 
 #### Strings
 
