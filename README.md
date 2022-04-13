@@ -299,18 +299,14 @@ While addition, subtraction, and multiplication can't cause panic, the calculati
 
 `Command line`:
 
-    ```
     $ go run calculator.go 9223372036854775807 9223372036854775807
-    ```
 
 `Output`:
 
-    ```
     -2
     0
     1
     1
-    ```
 
 ex. [02a-calculator.go](./02-Functions/02a-calculator.go) (line 57-63):
 
