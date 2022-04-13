@@ -8,6 +8,10 @@
    3. [Map](#map)
 2. [Calling Functions](#calling-functions)
    1. [Declaring and Calling Function](#declaring-and-calling-function)
+   2. [Reading the Command Line Using Arguments](#reading-the-command-line)
+   3. [Handling Errors](#handling-errors)
+   4. [Assigning Functions to Variables](#assigning-functions-to-variables)
+   5. [Looping over Functions](#looping-over-functions)
 
 ## <a name="declarations"></a>1. Using Types and Declarations in Go
 
@@ -105,7 +109,7 @@ func main() {
     fmt.Println(endSlice)
 ```
 
-`Output`:
+**Output**:
 
     [quick brown]
     [the quick]
@@ -130,7 +134,7 @@ A `map` is Go's version of an associative array. It holds `key-value` pairs and 
 
 #### Map Declaration
 
-[01e-maps.go](./01e-maps.go) (line 6-12):
+**ex.** [01e-maps.go](./01-Declarations/01e-maps.go) (line 6-12):
 
 ```go
     m := map[string]int{}
@@ -151,7 +155,7 @@ Note: Never use an uninitialized map variable. Unlike a slice, you cannot add a 
 
 #### Comma ok Idiom
 
-[01e-maps.go](./01e-maps.go) (line 27-34):
+**ex.** [01e-maps.go](./01-Declarations/01e-maps.go) (line 27-34):
 
 ```go
     m["present"] = 0
@@ -164,14 +168,14 @@ Note: Never use an uninitialized map variable. Unlike a slice, you cannot add a 
     fmt.Println(val, ok)
 ```
 
-`Output`:
+**Output**:
 
     0 true
     0 false
 
 #### Deleting From Maps
 
-[01e-maps.go](./01e-maps.go) (line 36-38):
+**ex.** [01e-maps.go](./01-Declarations/01e-maps.go) (line 36-38):
 
 ```go
     delete(m, "present")
@@ -216,13 +220,142 @@ func divider(a, b int) int {
 }
 ```
 
-#### Reading the Command Line
+### <a name="reading-the-command-line"></a>2.2. Reading the Command Line Using Arguments
 
 Go allows to accept arguments as other program languages.
 
-```
-$ go run <program_name> <arguments>
+**ex.** [02a-calculator.go](./02-Functions/02a-calculator.go) (line 5-12):
+
+```go
+import (
+	"os"
+	"strconv"
+)
+
+func main() {
+    a, _ := strconv.Atoi(os.Args[1])
+    b, _ := strconv.Atoi(os.Args[2])
+    c := adder(a, b)
+    (...)
+}
 ```
 
 - `os.Args` from `os` packages allows to use the arguments
 - `strconv.Atoi` from `strconv` package convert `string` to `int`
+
+**Command Line**:
+
+    $ go run <program_name> <arguments>
+
+### <a name="handling-errors"></a>2.3. Handling Errors
+
+#### Validating the Input
+
+**ex.** [02a-calculator.go](./02-Functions/02a-calculator.go) (line 9-16):
+
+```go
+func main() {
+    if len(os.Args) != 3 {
+        fmt.Println("Two integer parameters expected")
+        os.Exit(1)
+    }
+    a, _ := strconv.Atoi(os.Args[1])
+    b, _ := strconv.Atoi(os.Args[2])
+    c := adder(a, b)
+    (...)
+}
+```
+
+- `os.Exit` ends the program early with an error code
+
+#### Fixing the Function Signatures and Handling Panics
+
+`division by zero` will return the `panic: runtime error`. Before the division, check the divider is not equal to zero and return error message to prevent the panic error.
+
+**ex.** [02a-calculator.go](./02-Functions/02a-calculator.go) (line 84-89):
+
+```go
+func divider(a, b int) (int, error) {
+    if b == 0 {
+        return 0, errors.New("cannot divide by zero")
+    }
+    return a / b, nil
+}
+```
+
+#### More Data Handling Improvements
+
+While addition, subtraction, and multiplication can't cause panic, the calculation can still return the incorrect results when it uses too large numbers. It will result in `overflow`. By adding error handler to check the numbers that are beyond the range of an `int`, it can prevents the `overflow` and `underflow`.
+
+**Command line**:
+
+    $ go run calculator.go 9223372036854775807 9223372036854775807
+
+**Output**:
+
+    -2
+    0
+    1
+    1
+
+**ex.** [02a-calculator.go](./02-Functions/02a-calculator.go) (line 57-63):
+
+```go
+func adder(a, b int) (int, error) {
+    x := a + b
+    if (x > a) != (b > 0) {
+        return x, errors.New("addition out of bounds")
+    }
+    return x, nil
+}
+```
+
+The boolean condition `(x > a) != (b > 0)` is a very clever way to check if either of two things are true:
+
+- If the sum of the two numbers is greater than one of them, the other number must be positive
+- If the sum of the two numbers is less than one of them, the other one must be negative
+
+### <a name="assigning-functions-to-variables"></a>2.4. Assigning Functions to Variables
+
+Rather than call the functions directly, those functions can be assigned to the local variables. Then use the local variables as a functions on the lines.
+
+**Example**:
+
+    add := adder
+    sub := subtractor
+    mul := multiplier
+    div := divider
+    c, err := add(a, b)
+    d, err := sub(a, b)
+    e, err := mul(a, b)
+    f, err := div(a, b)
+
+### <a name="looping-over-functions"></a>2.5. Looping over Functions
+
+Slice of functions can make the program shorten.
+
+**ex.** [02e-calculator.go](./02-Functions/02e-calculator.go) (line 28-43):
+
+```go
+func main() {
+    (...)
+    funcs := []func(int, int) (int, error){
+        adder, subtractor, multiplier, divider,
+    }
+
+    ops := []string{
+        "adding", "subtracting", "multiplying", "dividing",
+    }
+
+    for i, f := range funcs {
+        v, err := f(a, b)
+        if err != nil {
+            fmt.Println(ops[i], "failed:", err)
+        } else {
+            fmt.Println(v)
+        }
+    }
+}
+```
+
+Slice of strings called `ops` contains the name of the functions. This can be used for the error reporting.
