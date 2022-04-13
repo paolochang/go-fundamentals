@@ -252,7 +252,7 @@ func main() {
 
 #### Validating the Input
 
-**ex.** [02a-calculator.go](./02-Functions/02a-calculator.go) (line 9-16):
+**ex.** [02c-calculator.go](./02-Functions/02c-calculator.go) (line 10-26):
 
 ```go
 func main() {
@@ -260,8 +260,18 @@ func main() {
         fmt.Println("Two integer parameters expected")
         os.Exit(1)
     }
-    a, _ := strconv.Atoi(os.Args[1])
-    b, _ := strconv.Atoi(os.Args[2])
+
+    a, err := strconv.Atoi(os.Args[1])
+    if err != nil {
+        fmt.Println("invalid first argument:", err)
+        os.Exit(1)
+    }
+
+    b, err := strconv.Atoi(os.Args[2])
+    if err != nil {
+        fmt.Println("invalid second argument:", err)
+        os.Exit(1)
+    }
     c := adder(a, b)
     (...)
 }
@@ -273,7 +283,7 @@ func main() {
 
 `division by zero` will return the `panic: runtime error`. Before the division, check the divider is not equal to zero and return error message to prevent the panic error.
 
-**ex.** [02a-calculator.go](./02-Functions/02a-calculator.go) (line 84-89):
+**ex.** [02c-calculator.go](./02-Functions/02c-calculator.go) (line 84-89):
 
 ```go
 func divider(a, b int) (int, error) {
@@ -299,7 +309,7 @@ While addition, subtraction, and multiplication can't cause panic, the calculati
     1
     1
 
-**ex.** [02a-calculator.go](./02-Functions/02a-calculator.go) (line 57-63):
+**ex.** [02c-calculator.go](./02-Functions/02c-calculator.go) (line 57-63):
 
 ```go
 func adder(a, b int) (int, error) {
