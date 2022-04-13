@@ -108,7 +108,7 @@ func main() {
     fmt.Println(endSlice)
 ```
 
-`Output`:
+**Output**:
 
     [quick brown]
     [the quick]
@@ -167,7 +167,7 @@ ex. [01e-maps.go](./01-Declarations/01e-maps.go) (line 27-34):
     fmt.Println(val, ok)
 ```
 
-`Output`:
+**Output**:
 
     0 true
     0 false
@@ -252,11 +252,9 @@ func main() {
 - `os.Args` from `os` packages allows to use the arguments
 - `strconv.Atoi` from `strconv` package convert `string` to `int`
 
-`Command Line`:
+**Command Line**:
 
-```
-$ go run <program_name> <arguments>
-```
+    $ go run <program_name> <arguments>
 
 ### <a name="handling-errors"></a>2.3. Handling Errors
 
@@ -298,11 +296,11 @@ func divider(a, b int) (int, error) {
 
 While addition, subtraction, and multiplication can't cause panic, the calculation can still return the incorrect results when it uses too large numbers. It will result in `overflow`. By adding error handler to check the numbers that are beyond the range of an `int`, it can prevents the `overflow` and `underflow`.
 
-`Command line`:
+**Command line**:
 
     $ go run calculator.go 9223372036854775807 9223372036854775807
 
-`Output`:
+**Output**:
 
     -2
     0
@@ -330,7 +328,7 @@ The boolean condition `(x > a) != (b > 0)` is a very clever way to check if eith
 
 Rather than call the functions directly, those functions can be assigned to the local variables. Then use the local variables as a functions on the lines.
 
-Example:
+**Example**:
 
     add := adder
     sub := subtractor
