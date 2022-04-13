@@ -187,26 +187,16 @@ Use the delete function to remove a key-value pair from a map. The first paramet
 
 #### Example of Calling Functions
 
-[02a-calculator.go](./02a-calculator.go)
+**ex.** [02a-calculator.go](./02-Functions/02a-calculator.go) (line 7-34):
 
 ```go
-package main
-
-import (
-    "fmt"
-)
-
 func main() {
     a := 20
     b := 10
     c := adder(a, b)
-    fmt.Println(c)
     d := subtractor(a, b)
-    fmt.Println(d)
     e := multiplier(a, b)
-    fmt.Println(e)
     f := divider(a, b)
-    fmt.Println(f)
 }
 
 func adder(a, b int) int {
