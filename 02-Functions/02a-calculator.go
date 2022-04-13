@@ -25,28 +25,33 @@ func main() {
         os.Exit(1)
     }
 
-    c, err := adder(a, b)
+    add := adder
+    sub := subtractor
+    mul := multiplier
+    div := divider
+
+    c, err := add(a, b)
     if err != nil {
         fmt.Println("adding failed:", err)
     } else {
         fmt.Println(c)
     }
 
-    d, err := subtractor(a, b)
+    d, err := sub(a, b)
     if err != nil {
         fmt.Println("subtracting failed:", err)
     } else {
         fmt.Println(d)
     }
 
-    e, err := multiplier(a, b)
+    e, err := mul(a, b)
     if err != nil {
         fmt.Println("multiplying failed:", err)
     } else {
         fmt.Println(e)
     }
-
-    f, err := divider(a, b)
+    
+    f, err := div(a, b)
     if err != nil {
         fmt.Println("dividing failed:", err)
     } else {
