@@ -130,7 +130,7 @@ A `map` is Go's version of an associative array. It holds `key-value` pairs and 
 
 #### Map Declaration
 
-[01e-maps.go](./01e-maps.go) (line 6-12):
+ex. [01e-maps.go](./01-Declarations/01e-maps.go) (line 6-12):
 
 ```go
     m := map[string]int{}
@@ -151,7 +151,7 @@ Note: Never use an uninitialized map variable. Unlike a slice, you cannot add a 
 
 #### Comma ok Idiom
 
-[01e-maps.go](./01e-maps.go) (line 27-34):
+ex. [01e-maps.go](./01-Declarations/01e-maps.go) (line 27-34):
 
 ```go
     m["present"] = 0
@@ -171,7 +171,7 @@ Note: Never use an uninitialized map variable. Unlike a slice, you cannot add a 
 
 #### Deleting From Maps
 
-[01e-maps.go](./01e-maps.go) (line 36-38):
+ex. [01e-maps.go](./01-Declarations/01e-maps.go) (line 36-38):
 
 ```go
     delete(m, "present")
@@ -187,7 +187,7 @@ Use the delete function to remove a key-value pair from a map. The first paramet
 
 #### Example of Calling Functions
 
-[02a-calculator.go](./02a-calculator.go)
+ex. [02a-calculator.go](./02-Functions/02a-calculator.go)
 
 ```go
 package main
