@@ -12,6 +12,7 @@
    3. [Handling Errors](#handling-errors)
    4. [Assigning Functions to Variables](#assigning-functions-to-variables)
    5. [Looping over Functions](#looping-over-functions)
+   6. [Run a Single Operation](#run-a-single-operation)
 
 ## <a name="declarations"></a>1. Using Types and Declarations in Go
 
@@ -380,3 +381,36 @@ func main() {
 ```
 
 Slice of strings called `ops` contains the name of the functions. This can be used for the error reporting.
+
+### <a name="run-a-single-operation"></a>2.6. Run a Single Operation
+
+By using `switch`, and assigning a function to a variable, the single operation can be implemented to perform a calculation. Now the arguments accept 3 parameters, two `numbers` and a `operator`.
+
+**ex.** [02f-calculator.go](./02-Functions/02f-calculator.go) (line 30-49):
+
+```go
+func main() {
+    (...)
+    var action func(int, int) (int, error)
+    var actionName string
+
+    switch op {
+        case "+":
+            action = adder
+            actionName = "adding"
+        case "-":
+            action = subtractor
+            actionName = "subtracting"
+        case "x":
+            action = multiplier
+            actionName = "multiplying"
+        case "/":
+            action = divider
+            actionName = "dividing"
+        default:
+            fmt.Println("Unknown operator:", op)
+            os.Exit(1)
+    }
+    (...)
+}
+```
