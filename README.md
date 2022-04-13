@@ -10,6 +10,7 @@
    1. [Declaring and Calling Function](#declaring-and-calling-function)
    2. [Reading the Command Line Using Arguments](#reading-the-command-line)
    3. [Handling Errors](#handling-errors)
+   4. [Assigning Functions to Variables](#assigning-functions-to-variables)
 
 ## <a name="declarations"></a>1. Using Types and Declarations in Go
 
@@ -324,3 +325,18 @@ The boolean condition `(x > a) != (b > 0)` is a very clever way to check if eith
 
 - If the sum of the two numbers is greater than one of them, the other number must be positive
 - If the sum of the two numbers is less than one of them, the other one must be negative
+
+### <a name="assigning-functions-to-variables"></a>2.4. Assigning Functions to Variables
+
+Rather than call the functions directly, those functions can be assigned to the local variables. Then use the local variables as a functions on the lines.
+
+`Example`:
+
+    add := adder
+    sub := subtractor
+    mul := multiplier
+    div := divider
+    c, err := add(a, b)
+    d, err := sub(a, b)
+    e, err := mul(a, b)
+    f, err := div(a, b)
