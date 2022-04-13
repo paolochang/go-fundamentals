@@ -8,6 +8,7 @@
    3. [Map](#map)
 2. [Calling Functions](#calling-functions)
    1. [Declaring and Calling Function](#declaring-and-calling-function)
+   2. [Reading the Command Line Using Arguments](#reading-the-command-line)
 
 ## <a name="declarations"></a>1. Using Types and Declarations in Go
 
@@ -226,9 +227,27 @@ func divider(a, b int) int {
 }
 ```
 
-#### Reading the Command Line
+### <a name="reading-the-command-line"></a> Reading the Command Line Using Arguments
 
 Go allows to accept arguments as other program languages.
+
+ex. [02a-calculator.go](./02-Functions/02a-calculator.go) (line 5-12):
+
+```go
+import (
+	"os"
+	"strconv"
+)
+
+func main() {
+    a, _ := strconv.Atoi(os.Args[1])
+    b, _ := strconv.Atoi(os.Args[2])
+    c := adder(a, b)
+    (...)
+}
+```
+
+`Command Line`:
 
 ```
 $ go run <program_name> <arguments>
