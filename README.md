@@ -330,16 +330,26 @@ The boolean condition `(x > a) != (b > 0)` is a very clever way to check if eith
 
 Rather than call the functions directly, those functions can be assigned to the local variables. Then use the local variables as a functions on the lines.
 
-**Example**:
+**ex.** [02d-calculator.go](./02-Functions/02d-calculator.go) (line 26-31)::
 
+```go
+func main() {
+    (...)
     add := adder
     sub := subtractor
     mul := multiplier
     div := divider
+
     c, err := add(a, b)
+    (...)
     d, err := sub(a, b)
+    (...)
     e, err := mul(a, b)
+    (...)
     f, err := div(a, b)
+    (...)
+}
+```
 
 ### <a name="looping-over-functions"></a>2.5. Looping over Functions
 
