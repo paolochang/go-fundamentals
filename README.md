@@ -227,7 +227,7 @@ func divider(a, b int) int {
 }
 ```
 
-### <a name="reading-the-command-line"></a> Reading the Command Line Using Arguments
+### <a name="reading-the-command-line"></a>2.2. Reading the Command Line Using Arguments
 
 Go allows to accept arguments as other program languages.
 
@@ -247,11 +247,83 @@ func main() {
 }
 ```
 
+- `os.Args` from `os` packages allows to use the arguments
+- `strconv.Atoi` from `strconv` package convert `string` to `int`
+
 `Command Line`:
 
 ```
 $ go run <program_name> <arguments>
 ```
 
-- `os.Args` from `os` packages allows to use the arguments
-- `strconv.Atoi` from `strconv` package convert `string` to `int`
+### <a name="handling-errors"></a>2.3. Handling Errors
+
+#### Validating the Input
+
+ex. [02a-calculator.go](./02-Functions/02a-calculator.go) (line 9-16):
+
+```go
+func main() {
+    if len(os.Args) != 3 {
+        fmt.Println("Two integer parameters expected")
+        os.Exit(1)
+    }
+    a, _ := strconv.Atoi(os.Args[1])
+    b, _ := strconv.Atoi(os.Args[2])
+    c := adder(a, b)
+    (...)
+}
+```
+
+- `os.Exit` ends the program early with an error code
+
+#### Fixing the Function Signatures and Handling Panics
+
+`division by zero` will return the `panic: runtime error`. Before the division, check the divider is not equal to zero and return error message to prevent the panic error.
+
+ex. [02a-calculator.go](./02-Functions/02a-calculator.go) (line 84-89):
+
+```go
+func divider(a, b int) (int, error) {
+    if b == 0 {
+        return 0, errors.New("cannot divide by zero")
+    }
+    return a / b, nil
+}
+```
+
+#### More Data Handling Improvements
+
+While addition, subtraction, and multiplication can't cause panic, the calculation can still return the incorrect results when it uses too large numbers. It will result in `overflow`. By adding error handler to check the numbers that are beyond the range of an `int`, it can prevents the `overflow` and `underflow`.
+
+`Command line`:
+
+    ```
+    $ go run calculator.go 9223372036854775807 9223372036854775807
+    ```
+
+`Output`:
+
+    ```
+    -2
+    0
+    1
+    1
+    ```
+
+ex. [02a-calculator.go](./02-Functions/02a-calculator.go) (line 57-63):
+
+```go
+func adder(a, b int) (int, error) {
+    x := a + b
+    if (x > a) != (b > 0) {
+        return x, errors.New("addition out of bounds")
+    }
+    return x, nil
+}
+```
+
+The boolean condition `(x > a) != (b > 0)` is a very clever way to check if either of two things are true:
+
+- If the sum of the two numbers is greater than one of them, the other number must be positive
+- If the sum of the two numbers is less than one of them, the other one must be negative
