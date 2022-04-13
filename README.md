@@ -9,6 +9,7 @@
 2. [Calling Functions](#calling-functions)
    1. [Declaring and Calling Function](#declaring-and-calling-function)
    2. [Reading the Command Line Using Arguments](#reading-the-command-line)
+   3. [Handling Errors](#handling-errors)
 
 ## <a name="declarations"></a>1. Using Types and Declarations in Go
 
