@@ -2,13 +2,16 @@
 
 ## Index
 
-1. [Variable Declarations & Type Conversions](#variable-declarations)
-2. [Strings and Slices](#strings-and-slices)
-3. [Map](#map)
+1. [Using Types and Declarations in Go](#declarations)
+   1. [Variable Declarations & Type Conversions](#variable-declarations)
+   2. [Strings and Slices](#strings-and-slices)
+   3. [Map](#map)
+2. [Calling Functions](#calling-functions)
+   1. [Declaring and Calling Function](#declaring-and-calling-function)
 
-## Using Types and Declarations in Go
+## <a name="declarations"></a>1. Using Types and Declarations in Go
 
-### <a name="variable-declarations"></a>1. Variable Declarations & Type Conversions
+### <a name="variable-declarations"></a>1.1. Variable Declarations & Type Conversions
 
 #### Declarations and Print Output
 
@@ -48,7 +51,7 @@ The `:=` operator allows to declare and assign a value to a variable. The `:=` o
     fmt.Println(x, y, z)
 ```
 
-### <a name="strings-and-slices"></a>2. Strings and Slices
+### <a name="strings-and-slices"></a>1.2. Strings and Slices
 
 #### Strings
 
@@ -121,7 +124,7 @@ The slice expression using inside of brackets, `:`, has `starting offset` and `e
 
 A `rune` is an Unicode code point, whish is a 32-bit int and rune literal is a single character within single quotes.
 
-### <a name="map"></a>3. Maps
+### <a name="map"></a>1.3. Maps
 
 A `map` is Go's version of an associative array. It holds `key-value` pairs and is similar to the `HashMap` in Java, the `dict` in Python, or the `Hash` in Ruby.
 
@@ -177,3 +180,59 @@ Note: Never use an uninitialized map variable. Unlike a slice, you cannot add a 
 ```
 
 Use the delete function to remove a key-value pair from a map. The first parameter passed to the delete function is the map, and the second parameter is the key to remove. This function returns nothing. If a key that's not in the map, is passed, the function call does nothing.
+
+## <a name="calling-functions"></a>2. Calling Functions
+
+### <a name="declaring-and-calling-function"></a>2.1 Declaring and Calling Function
+
+#### Example of Calling Functions
+
+[02a-calculator.go](./02a-calculator.go)
+
+```go
+package main
+
+import (
+    "fmt"
+)
+
+func main() {
+    a := 20
+    b := 10
+    c := adder(a, b)
+    fmt.Println(c)
+    d := subtractor(a, b)
+    fmt.Println(d)
+    e := multiplier(a, b)
+    fmt.Println(e)
+    f := divider(a, b)
+    fmt.Println(f)
+}
+
+func adder(a, b int) int {
+    return a + b
+}
+
+func subtractor(a, b int) int {
+    return a - b
+}
+
+func multiplier(a, b int) int {
+    return a * b
+}
+
+func divider(a, b int) int {
+    return a / b
+}
+```
+
+#### Reading the Command Line
+
+Go allows to accept arguments as other program languages.
+
+```
+$ go run <program_name> <arguments>
+```
+
+- `os.Args` from `os` packages allows to use the arguments
+- `strconv.Atoi` from `strconv` package convert `string` to `int`
