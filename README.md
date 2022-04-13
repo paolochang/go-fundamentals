@@ -11,6 +11,7 @@
    2. [Reading the Command Line Using Arguments](#reading-the-command-line)
    3. [Handling Errors](#handling-errors)
    4. [Assigning Functions to Variables](#assigning-functions-to-variables)
+   5. [Looping over Functions](#looping-over-functions)
 
 ## <a name="declarations"></a>1. Using Types and Declarations in Go
 
@@ -133,7 +134,7 @@ A `map` is Go's version of an associative array. It holds `key-value` pairs and 
 
 #### Map Declaration
 
-ex. [01e-maps.go](./01-Declarations/01e-maps.go) (line 6-12):
+**ex.** [01e-maps.go](./01-Declarations/01e-maps.go) (line 6-12):
 
 ```go
     m := map[string]int{}
@@ -154,7 +155,7 @@ Note: Never use an uninitialized map variable. Unlike a slice, you cannot add a 
 
 #### Comma ok Idiom
 
-ex. [01e-maps.go](./01-Declarations/01e-maps.go) (line 27-34):
+**ex.** [01e-maps.go](./01-Declarations/01e-maps.go) (line 27-34):
 
 ```go
     m["present"] = 0
@@ -174,7 +175,7 @@ ex. [01e-maps.go](./01-Declarations/01e-maps.go) (line 27-34):
 
 #### Deleting From Maps
 
-ex. [01e-maps.go](./01-Declarations/01e-maps.go) (line 36-38):
+**ex.** [01e-maps.go](./01-Declarations/01e-maps.go) (line 36-38):
 
 ```go
     delete(m, "present")
@@ -190,7 +191,7 @@ Use the delete function to remove a key-value pair from a map. The first paramet
 
 #### Example of Calling Functions
 
-ex. [02a-calculator.go](./02-Functions/02a-calculator.go)
+**ex.** [02a-calculator.go](./02-Functions/02a-calculator.go)
 
 ```go
 package main
@@ -233,7 +234,7 @@ func divider(a, b int) int {
 
 Go allows to accept arguments as other program languages.
 
-ex. [02a-calculator.go](./02-Functions/02a-calculator.go) (line 5-12):
+**ex.** [02a-calculator.go](./02-Functions/02a-calculator.go) (line 5-12):
 
 ```go
 import (
@@ -260,7 +261,7 @@ func main() {
 
 #### Validating the Input
 
-ex. [02a-calculator.go](./02-Functions/02a-calculator.go) (line 9-16):
+**ex.** [02a-calculator.go](./02-Functions/02a-calculator.go) (line 9-16):
 
 ```go
 func main() {
@@ -281,7 +282,7 @@ func main() {
 
 `division by zero` will return the `panic: runtime error`. Before the division, check the divider is not equal to zero and return error message to prevent the panic error.
 
-ex. [02a-calculator.go](./02-Functions/02a-calculator.go) (line 84-89):
+**ex.** [02a-calculator.go](./02-Functions/02a-calculator.go) (line 84-89):
 
 ```go
 func divider(a, b int) (int, error) {
@@ -307,7 +308,7 @@ While addition, subtraction, and multiplication can't cause panic, the calculati
     1
     1
 
-ex. [02a-calculator.go](./02-Functions/02a-calculator.go) (line 57-63):
+**ex.** [02a-calculator.go](./02-Functions/02a-calculator.go) (line 57-63):
 
 ```go
 func adder(a, b int) (int, error) {
@@ -338,3 +339,33 @@ Rather than call the functions directly, those functions can be assigned to the 
     d, err := sub(a, b)
     e, err := mul(a, b)
     f, err := div(a, b)
+
+### <a name="looping-over-functions"></a>2.5. Looping over Functions
+
+Slice of functions can make the program shorten.
+
+**ex.** [02e-calculator.go](./02-Functions/02e-calculator.go) (line 28-43):
+
+```go
+func main() {
+    (...)
+    funcs := []func(int, int) (int, error){
+        adder, subtractor, multiplier, divider,
+    }
+
+    ops := []string{
+        "adding", "subtracting", "multiplying", "dividing",
+    }
+
+    for i, f := range funcs {
+        v, err := f(a, b)
+        if err != nil {
+            fmt.Println(ops[i], "failed:", err)
+        } else {
+            fmt.Println(v)
+        }
+    }
+}
+```
+
+Slice of strings called `ops` contains the name of the functions. This can be used for the error reporting.
