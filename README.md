@@ -330,7 +330,7 @@ The boolean condition `(x > a) != (b > 0)` is a very clever way to check if eith
 
 Rather than call the functions directly, those functions can be assigned to the local variables. Then use the local variables as a functions on the lines.
 
-`Example`:
+Example:
 
     add := adder
     sub := subtractor
