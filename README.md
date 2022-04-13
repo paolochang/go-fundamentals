@@ -224,10 +224,11 @@ func divider(a, b int) int {
 
 Go allows to accept arguments as other program languages.
 
-**ex.** [02a-calculator.go](./02-Functions/02a-calculator.go) (line 5-12):
+**ex.** [02b-calculator.go](./02-Functions/02b-calculator.go) (line 3-11):
 
 ```go
 import (
+    (...)
 	"os"
 	"strconv"
 )
