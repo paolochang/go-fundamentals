@@ -13,6 +13,7 @@
    4. [Assigning Functions to Variables](#assigning-functions-to-variables)
    5. [Looping over Functions](#looping-over-functions)
    6. [Run a Single Operation](#run-a-single-operation)
+   7. [Lookup Functions via a map](#lookup-functions-via-a-map)
 
 ## <a name="declarations"></a>1. Using Types and Declarations in Go
 
@@ -414,3 +415,43 @@ func main() {
     (...)
 }
 ```
+
+### <a name="lookup-functions-via-a-map"></a>2.7. Lookup Functions via a map
+
+**ex.** [02g-calculator.go](./02-Functions/02g-calculator.go) (line 10-51):
+
+```go
+var opMap = map[string]func(int, int) (int, error){
+    "+": adder,
+    "-": subtractor,
+    "x": multiplier,
+    "/": divider,
+}
+
+var opNameMap = map[string]string{
+    "+": "adding",
+    "-": "subtracting",
+    "x": "multiplying",
+    "/": "dividing",
+}
+
+func main() {
+    (...)
+    action, ok := opMap[op]
+    if !ok {
+        fmt.Println("Unknown operator:", op)
+        os.Exit(1)
+    }
+    v, err := action(a, b)
+    if err != nil {
+        fmt.Println(opNameMap[op], "failed:", err)
+    } else {
+        fmt.Println(v)
+    }
+}
+
+```
+
+`opMap` associates the valid operators with the functions that implement their functionality. `opNameMap` associates the valid operators with the names of the operations. This is a good use of package-level state, because this information is immutable; The values in the maps never going to be changed.
+
+While you can assign a function as the value for a map, it cannot be a key, because a function type (like a slice or a map) isn't comparable.
