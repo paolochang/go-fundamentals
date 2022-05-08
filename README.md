@@ -14,6 +14,8 @@
    5. [Looping over Functions](#looping-over-functions)
    6. [Run a Single Operation](#run-a-single-operation)
    7. [Lookup Functions via a map](#lookup-functions-via-a-map)
+3. [Methods and Interfaces](#methods-and-interfaces)
+   1. [Declaring Your Own Types](#declaring-your-own-type)
 
 ## <a name="declarations"></a>1. Using Types and Declarations in Go
 
@@ -455,3 +457,34 @@ func main() {
 `opMap` associates the valid operators with the functions that implement their functionality. `opNameMap` associates the valid operators with the names of the operations. This is a good use of package-level state, because this information is immutable; The values in the maps never going to be changed.
 
 While you can assign a function as the value for a map, it cannot be a key, because a function type (like a slice or a map) isn't comparable.
+
+## <a name="methods-and-interfaces"></a>3. Methods and Interfaces
+
+### <a name="declaring-your-own-type"></a>3.1. Declaring Your Own Types
+
+Define an `Employee` for personnel management system
+
+**ex.** [03a-people.go](./03-Methods-and-Interface/03a-people.go) (line 8-21):
+
+```go
+type Employee struct {
+    ID        int
+    FirstName string
+    LastName  string
+    DateHired time.Time
+}
+
+func main() {
+    e1 := Employee{
+        ID:        1,
+        FirstName: "Bob",
+        LastName:  "Bobson",
+        DateHired: time.Date(2020, time.January, 10, 0, 0, 0, 0, time.UTC),
+    }
+    // Bob got married and changed his last name
+    e1.LastName = "Bobson-Smith"
+    fmt.Println(e1.LastName)
+}
+```
+
+Use the user-defined type with the keyword `type`, followed by the name of the type (in example, `Employee`). Lists the fields after the `struct` keyword.
