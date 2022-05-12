@@ -16,6 +16,7 @@
    7. [Lookup Functions via a map](#lookup-functions-via-a-map)
 3. [Methods and Interfaces](#methods-and-interfaces)
    1. [Declaring Your Own Types](#declaring-your-own-type)
+   2. [Adding Methods to Types](#adding-methods-to-types)
 
 ## <a name="declarations"></a>1. Using Types and Declarations in Go
 
@@ -530,3 +531,55 @@ func main() {
 Rather than access the `Employees` map directly, `AddEmployee`, and `GetEmployee` are added.
 
 In `main`, `Employee` is not instantiated directly. Instead, call `AddEmployee` to create `Employee` instances that are stored in the `Employees` map and call `GetEmployee` to access them.
+
+### <a name="adding-methods-to-types"></a>3.2. Adding Methods to Types
+
+Go is not a pure object oriented programming language. Go does not provide **classes** but it does provide **structs**. **Methods** ca be added on structs.
+
+**ex.** [03c-people.go](./03-Methods-and-Interface/03c-people.go) (line 23-45):
+
+```go
+func NewSimpleEmployeeData() *SimpleEmployeeData {
+    return &SimpleEmployeeData{
+        employees: map[int]Employee{},
+        //more3
+        nextID:    0,
+    }
+}
+
+func (ed *SimpleEmployeeData) AddEmployee(firstName, lastName string, dateHired time.Time) int {
+    ed.nextID++
+    ed.employees[ed.nextID] = Employee{
+        ID:        ed.nextID,
+        FirstName: firstName,
+        LastName:  lastName,
+        DateHired: dateHired,
+    }
+    return ed.nextID
+}
+
+func (ed SimpleEmployeeData) GetEmployee(id int) (Employee, bool) {
+    e, ok := ed.employees[id]
+    return e, ok
+}
+```
+
+Go does not support constructors, but `NewSimpleEmployeeData()` will act as a constructor.
+
+The `AddEmployee` and `GetEmployee` methods are added to the `SimpleEmployeeData` struct.
+
+The `GetEmployee` function declaration looks like:
+
+```go
+func GetEmployee(id int) (Employee, bool) {}
+```
+
+The `GetEmployee` method declaration looks like:
+
+```go
+func (ed SimpleEmployeeData) GetEmployee(id int) (Employee, bool) {}
+```
+
+The only difference is the **receiver** declaration between the `func` keyword and the method name. Within the body of the `GetEmployee` method, we access the fields on our `SimpleEmployeeData` instance using the `ed` receiver:
+
+These methods are operates on the `SimpleEmployeeData` struct bundled together akin to a class.
