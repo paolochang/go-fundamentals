@@ -17,6 +17,7 @@
 3. [Methods and Interfaces](#methods-and-interfaces)
    1. [Declaring Your Own Types](#declaring-your-own-type)
    2. [Adding Methods to Types](#adding-methods-to-types)
+   3. [Embedded Types](#embedded-types)
 
 ## <a name="declarations"></a>1. Using Types and Declarations in Go
 
@@ -583,3 +584,73 @@ func (ed SimpleEmployeeData) GetEmployee(id int) (Employee, bool) {}
 The only difference is the **receiver** declaration between the `func` keyword and the method name. Within the body of the `GetEmployee` method, we access the fields on our `SimpleEmployeeData` instance using the `ed` receiver:
 
 These methods are operates on the `SimpleEmployeeData` struct bundled together akin to a class.
+
+### <a name="embedded-types"></a>3.2. Embedded Types
+
+**ex.** [03d-people.go](./03-Methods-and-Interface/03d-people.go) (line 15-68, 79-94):
+
+Add new type, `Manager` to `SimpleEmployeeData`.
+
+```go
+type Manager struct {
+    Employee        // <- embedded field
+    Reports []int
+}
+
+
+type SimpleEmployeeData struct {
+    employees map[int]Employee
+    managers  map[int]Manager
+    nextID    int
+}
+
+func NewSimpleEmployeeData() *SimpleEmployeeData {
+    return &SimpleEmployeeData{
+        employees: map[int]Employee{},
+        managers:  map[int]Manager{},
+        nextID:    0,
+    }
+}
+
+func (ed *SimpleEmployeeData) AddManager(firstName, lastName string, dateHired time.Time, reports []int) int {
+    ed.nextID++
+    ed.managers[ed.nextID] = Manager {
+        Employee: Employee {
+            ID:        ed.nextID,
+            FirstName: firstName,
+            LastName:  lastName,
+            DateHired: dateHired,
+        },
+        Reports: reports,
+    }
+    return ed.nextID
+}
+
+func (ed SimpleEmployeeData) GetManager(id int) (Manager, bool) {
+    m, ok := ed.managers[id]
+    return m, ok
+}
+
+(...)
+
+func manageEmployees(ed *SimpleEmployeeData) {
+    e1ID := ed.AddEmployee("Bob", "Bobson", DMYToTime(10, time.January, 2020))
+    e2ID := ed.AddEmployee("Mary", "Maryson", DMYToTime(30, time.March, 2007))
+    e1, exists1 := ed.GetEmployee(e1ID)
+    e2, exists2 := ed.GetEmployee(e2ID)
+    fmt.Println(e1, exists1)
+    fmt.Println(e2, exists2)
+    e3, exists3 := ed.GetEmployee(2000)
+    fmt.Println(e3, exists3)
+
+	m1ID := ed.AddManager("Boss", "BossPerson", DMYToTime(17, time.June, 1982), []int{e1ID, e2ID})
+    m1, exists4 := ed.GetManager(m1ID)
+    fmt.Println(m1.FirstName, m1.Reports)
+	// e4 := m1.Employee
+    fmt.Println(m1, exists4)
+}
+```
+
+The advantages of using embedded fields is accesing the fields from `Employee` within `Manager`, as though the fields were declared directly on `Manager`. That's why `fmt.Println(m1.FirstName, m1.Reports)` are working, even though `FirstName` is a field in `Employee`.
+
+**Be aware that embedding is not inheritance.** You cannot assign a value of type `Manager` to a variable or field of type `Employee`.
