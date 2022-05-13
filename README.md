@@ -643,10 +643,11 @@ func manageEmployees(ed *SimpleEmployeeData) {
     e3, exists3 := ed.GetEmployee(2000)
     fmt.Println(e3, exists3)
 
-	m1ID := ed.AddManager("Boss", "BossPerson", DMYToTime(17, time.June, 1982), []int{e1ID, e2ID})
+    m1ID := ed.AddManager("Boss", "BossPerson", DMYToTime(17, time.June, 1982), []int{e1ID, e2ID})
     m1, exists4 := ed.GetManager(m1ID)
     fmt.Println(m1.FirstName, m1.Reports)
-	// e4 := m1.Employee
+
+    // e4 := m1.Employee
     fmt.Println(m1, exists4)
 }
 ```
