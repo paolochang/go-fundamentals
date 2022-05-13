@@ -587,7 +587,7 @@ These methods are operates on the `SimpleEmployeeData` struct bundled together a
 
 ### <a name="embedded-types"></a>3.2. Embedded Types
 
-**ex.** [03d-people.go](./03-Methods-and-Interface/03d-people.go) (line 15-68, 79-94):
+**ex.** [03d-people.go](./03-Methods-and-Interface/03d-people.go) (line 15-67, 78-93):
 
 Add new type, `Manager` to `SimpleEmployeeData`.
 
